@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Registration Confirmation Page</title>
+<title>Página para mensagens de ações bem sucedidas</title>
 </head>
 <body>
-	message : ${success}
+	Mensagem : ${success}
 	<br/>
 	<br/>
-	Go back to <a href="<c:url value='/list' />">List of All Employees</a>
+	Voltar para <a href="<c:url value='/list' />">Home</a>
 	
 </body>
 

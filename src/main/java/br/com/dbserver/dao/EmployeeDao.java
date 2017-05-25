@@ -1,8 +1,8 @@
-package com.websystique.springmvc.dao;
+package br.com.dbserver.dao;
 
 import java.util.List;
 
-import com.websystique.springmvc.model.Employee;
+import br.com.dbserver.model.Employee;
 
 public interface EmployeeDao {
 

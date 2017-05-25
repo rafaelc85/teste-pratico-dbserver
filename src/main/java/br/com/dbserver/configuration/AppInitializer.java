@@ -1,4 +1,4 @@
-package com.websystique.springmvc.configuration;
+package br.com.dbserver.configuration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

@@ -34,5 +34,22 @@
 	</table>
 	<br/>
 	<a href="<c:url value='/new' />">Add New Employee</a>
+        
+        <h2>List of Funcionarios</h2>	
+	<table>
+		<tr>
+			<td>ID</td><td>Nome</td><td>Funcao</td><td></td>
+		</tr>
+		<c:forEach items="${funcionarios}" var="funcionario">
+			<tr>
+			<td>${funcionario.id}</td>
+			<td><a href="<c:url value='/funcionario/edit/${funcionario.id}' />">${funcionario.nome}</a></td>
+			<td>${funcionario.funcao}</td>
+			<td><a href="<c:url value='/funcionario/delete/${funcionario.id}' />">remover</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<br/>
+	<a href="<c:url value='/funcionario/new' />">Add New Funcionario</a>
 </body>
 </html>

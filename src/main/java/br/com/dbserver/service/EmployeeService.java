@@ -1,8 +1,8 @@
-package com.websystique.springmvc.service;
+package br.com.dbserver.service;
 
 import java.util.List;
 
-import com.websystique.springmvc.model.Employee;
+import br.com.dbserver.model.Employee;
 
 public interface EmployeeService {
 

@@ -1,4 +1,4 @@
-package com.websystique.springmvc.service;
+package br.com.dbserver.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.websystique.springmvc.dao.EmployeeDao;
-import com.websystique.springmvc.model.Employee;
+import br.com.dbserver.dao.EmployeeDao;
+import br.com.dbserver.model.Employee;
 
 @Service("employeeService")
 @Transactional

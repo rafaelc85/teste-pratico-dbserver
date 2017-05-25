@@ -1,4 +1,4 @@
-package com.websystique.springmvc.model;
+package br.com.dbserver.model;
 
 import java.math.BigDecimal;
 

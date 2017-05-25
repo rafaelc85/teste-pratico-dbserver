@@ -1,4 +1,4 @@
-package com.websystique.springmvc.dao;
+package br.com.dbserver.dao;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.websystique.springmvc.model.Employee;
+import br.com.dbserver.model.Employee;
 
 @Repository("employeeDao")
 public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements EmployeeDao {

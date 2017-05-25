@@ -1,4 +1,4 @@
-package com.websystique.springmvc.configuration;
+package br.com.dbserver.configuration;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.websystique.springmvc")
+@ComponentScan(basePackages = "br.com.dbserver")
 public class AppConfig {
 	
 	@Bean

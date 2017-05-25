@@ -1,4 +1,4 @@
-package com.websystique.springmvc.dao;
+package br.com.dbserver.dao;
 
 import java.io.Serializable;
 

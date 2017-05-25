@@ -3,7 +3,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.websystique.springmvc</groupId>
+	<groupId>br.com.dbserver</groupId>
 	<artifactId>TestePraticoDBServer</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
@@ -149,13 +149,13 @@
 					<version>2.4</version>
 					<configuration>
 						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>SpringHibernateExample</warName>
+						<warName>TestePraticoDBServer</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>SpringHibernateExample</finalName>
+		<finalName>TestePraticoDBServer</finalName>
 	</build>
 </project>
 

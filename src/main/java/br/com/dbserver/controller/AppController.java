@@ -1,4 +1,4 @@
-package com.websystique.springmvc.controller;
+package br.com.dbserver.controller;
 
 import java.util.List;
 import java.util.Locale;
@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.websystique.springmvc.model.Employee;
-import com.websystique.springmvc.service.EmployeeService;
+import br.com.dbserver.model.Employee;
+import br.com.dbserver.model.Funcionario;
+import br.com.dbserver.service.EmployeeService;
+import br.com.dbserver.service.FuncionarioService;
 
 @Controller
 @RequestMapping("/")
@@ -24,6 +26,9 @@ public class AppController {
 
 	@Autowired
 	EmployeeService service;
+        
+        @Autowired
+	FuncionarioService funcionarioService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -33,10 +38,13 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
-
 		List<Employee> employees = service.findAllEmployees();
 		model.addAttribute("employees", employees);
-		return "allemployees";
+                
+                List<Funcionario> funcionarios = funcionarioService.findAllFuncionarios();
+		model.addAttribute("funcionarios", funcionarios);
+		
+                return "home";
 	}
 
 	/*
@@ -49,12 +57,8 @@ public class AppController {
 		model.addAttribute("edit", false);
 		return "registration";
 	}
-
-	/*
-	 * This method will be called on form submission, handling POST request for
-	 * saving employee in database. It also validates the user input
-	 */
-	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
+        
+        @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
 	public String saveEmployee(@Valid Employee employee, BindingResult result,
 			ModelMap model) {
 
@@ -62,14 +66,6 @@ public class AppController {
 			return "registration";
 		}
 
-		/*
-		 * Preferred way to achieve uniqueness of field [ssn] should be implementing custom @Unique annotation 
-		 * and applying it on field [ssn] of Model class [Employee].
-		 * 
-		 * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-		 * framework as well while still using internationalized messages.
-		 * 
-		 */
 		if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
 			FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
 		    result.addError(ssnError);
@@ -81,8 +77,7 @@ public class AppController {
 		model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
 		return "success";
 	}
-
-
+        
 	/*
 	 * This method will provide the medium to update an existing employee.
 	 */
