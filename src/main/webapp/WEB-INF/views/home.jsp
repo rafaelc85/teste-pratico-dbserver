@@ -16,26 +16,8 @@
 </head>
 
 
-<body>
-	<h2>List of Employees</h2>	
-	<table>
-		<tr>
-			<td>NAME</td><td>Joining Date</td><td>Salary</td><td>SSN</td><td></td>
-		</tr>
-		<c:forEach items="${employees}" var="employee">
-			<tr>
-			<td>${employee.name}</td>
-			<td>${employee.joiningDate}</td>
-			<td>${employee.salary}</td>
-			<td><a href="<c:url value='/edit-${employee.ssn}-employee' />">${employee.ssn}</a></td>
-			<td><a href="<c:url value='/delete-${employee.ssn}-employee' />">delete</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	<br/>
-	<a href="<c:url value='/new' />">Add New Employee</a>
-        
-        <h2>List of Funcionarios</h2>	
+<body>   
+        <h2>Lista de Funcionarios</h2>	
 	<table>
 		<tr>
 			<td>ID</td><td>Nome</td><td>Funcao</td><td></td>
@@ -50,6 +32,22 @@
 		</c:forEach>
 	</table>
 	<br/>
-	<a href="<c:url value='/funcionario/new' />">Add New Funcionario</a>
+	<a href="<c:url value='/funcionario/new' />">Adicionar Funcionario</a>
+        
+        <h2>Lista de Restaurantes</h2>	
+	<table>
+		<tr>
+			<td>ID</td><td>Nome</td><td></td>
+		</tr>
+		<c:forEach items="${restaurantes}" var="restaurante">
+			<tr>
+			<td>${restaurante.id}</td>
+			<td><a href="<c:url value='/restaurante/edit/${restaurante.id}' />">${restaurante.nome}</a></td>
+			<td><a href="<c:url value='/restaurante/delete/${restaurante.id}' />">remover</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<br/>
+	<a href="<c:url value='/restaurante/new' />">Adicionar restaurante</a>
 </body>
 </html>

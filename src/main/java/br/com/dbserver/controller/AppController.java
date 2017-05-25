@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.dbserver.model.Employee;
 import br.com.dbserver.model.Funcionario;
+import br.com.dbserver.model.Restaurante;
 import br.com.dbserver.service.EmployeeService;
 import br.com.dbserver.service.FuncionarioService;
+import br.com.dbserver.service.RestauranteService;
 
 @Controller
 @RequestMapping("/")
@@ -29,20 +31,21 @@ public class AppController {
         
         @Autowired
 	FuncionarioService funcionarioService;
+        
+        @Autowired
+	RestauranteService restauranteService;
 	
 	@Autowired
 	MessageSource messageSource;
 
-	/*
-	 * This method will list all existing employees.
-	 */
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
-		List<Employee> employees = service.findAllEmployees();
-		model.addAttribute("employees", employees);
-                
+		         
                 List<Funcionario> funcionarios = funcionarioService.findAllFuncionarios();
 		model.addAttribute("funcionarios", funcionarios);
+                
+                List<Restaurante> restaurantes = restauranteService.findAllRestaurantes();
+		model.addAttribute("restaurantes", restaurantes);
 		
                 return "home";
 	}

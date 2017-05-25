@@ -1,9 +1,12 @@
 package br.com.dbserver.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,14 +26,14 @@ public class Restaurante {
     @Column(name = "nome", nullable = false)
     private String nome;
     
-    private ArrayList<Voto> votos;
-
-    public ArrayList<Voto> getVotos() {
-        return votos;
+    @OneToMany
+    private Set<Voto> votos;    
+    
+    public Set<Voto> getVotos() {
+        return this.votos;
     }
     
-    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
-    public void setVotos(ArrayList<Voto> votos) {
+    public void setVotos(Set<Voto> votos) {
         this.votos = votos;
     }
     
@@ -57,9 +60,7 @@ public class Restaurante {
     @Override
     public String toString() {
         return "Funcionario{" + "id=" + id + ", nome=" + nome + '}';
-    }
-
-        
+    }       
 	
 
 }
