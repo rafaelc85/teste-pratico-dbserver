@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.dbserver.model.Employee;
 import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
+import br.com.dbserver.model.Voto;
 import br.com.dbserver.service.EmployeeService;
 import br.com.dbserver.service.FuncionarioService;
 import br.com.dbserver.service.RestauranteService;
+import br.com.dbserver.service.VotoService;
 
 @Controller
 @RequestMapping("/")
@@ -34,6 +36,9 @@ public class AppController {
         
         @Autowired
 	RestauranteService restauranteService;
+        
+        @Autowired
+	VotoService votoService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -46,6 +51,9 @@ public class AppController {
                 
                 List<Restaurante> restaurantes = restauranteService.findAllRestaurantes();
 		model.addAttribute("restaurantes", restaurantes);
+                
+                List<Voto> votos = votoService.findAllVotos();
+		model.addAttribute("votos", votos);
 		
                 return "home";
 	}

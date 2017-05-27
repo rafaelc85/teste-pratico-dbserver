@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
 import br.com.dbserver.service.RestauranteService;
 import org.springframework.web.bind.annotation.PathVariable;

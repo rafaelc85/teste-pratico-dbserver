@@ -1,12 +1,9 @@
 package br.com.dbserver.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,19 +23,22 @@ public class Restaurante {
     @Column(name = "nome", nullable = false)
     private String nome;
     
-    @OneToMany
-    private Set<Voto> votos;    
+    @OneToMany(mappedBy = "restaurante")
+    private List<Voto> votos = new ArrayList<Voto>();    
     
-    public Set<Voto> getVotos() {
+    public List<Voto> getVotos() {
         return this.votos;
     }
     
-    public void setVotos(Set<Voto> votos) {
+    public void setVotos(List<Voto> votos) {        
         this.votos = votos;
     }
     
     public void addVoto(Voto voto){
-        votos.add(voto);
+        this.votos.add(voto);
+        if(voto.getRestaurante() != this){
+            voto.setRestaurante(this);
+        }
     }
 
     public int getId() {

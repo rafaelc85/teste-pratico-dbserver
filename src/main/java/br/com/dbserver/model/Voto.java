@@ -32,13 +32,13 @@ public class Voto {
     private Restaurante restaurante;
 
     @NotNull
-    @DateTimeFormat(pattern="dd/MM/yyyy") 
+    @DateTimeFormat(pattern="MM/dd/yyyy") 
     @Column(name = "data", nullable = false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate data;
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -59,6 +59,9 @@ public class Voto {
 
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
+        if(!restaurante.getVotos().contains(this)){
+            restaurante.getVotos().add(this);
+        }
     }
 
     public LocalDate getData() {
@@ -73,6 +76,7 @@ public class Voto {
     public String toString() {
         return "Voto{" + "id=" + id + ", funcionario=" + funcionario + ", restaurante=" + restaurante + ", data=" + data + '}';
     }
+
 
         
  
