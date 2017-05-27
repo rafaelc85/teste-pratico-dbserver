@@ -59,17 +59,49 @@ public class VotoController {
 	}
         
         @RequestMapping(value = { "/voto/new" }, method = RequestMethod.POST)
-	public String saveVoto(@ModelAttribute("voto") Voto voto, 
-                ModelMap model,  HttpServletRequest request) {                                                            
+	public String saveVoto(@ModelAttribute("voto") Voto voto, Map<String, Object> map,
+                BindingResult result, ModelMap model,  HttpServletRequest request) {
+                                                            
+		if (result.hasErrors()) {
+                        model.addAttribute("success", "dados do voto: " + voto.toString());
+                        return "success";
+			//return "newVoto";
+		}
                 int id;
                 id = (int)Integer.parseInt(request.getParameter("funcionario_id")); 
                 voto.setFuncionario(funcionarioService.findById(id));
                 id = (int)Integer.parseInt(request.getParameter("restaurante_id")); 
                 voto.setRestaurante(restauranteService.findById(id));
+                
+                String validaVoto = votoService.validaVoto(voto, voto.getFuncionario());                
+                if(validaVoto!=null){
+                    model.addAttribute("success", validaVoto);
+                    return "success";
+                }
 		votoService.saveVoto(voto);
-		model.addAttribute("success", "Voto registrado com sucesso");
+		model.addAttribute("success", "Voto registrado com sucesso: " + voto.toString());
 		return "success";
-	}           
+	}
+        
+        @RequestMapping(value = { "/novoVoto" }, method = RequestMethod.POST)
+        @ResponseBody
+	public String novoVoto(HttpServletRequest request, ModelMap model,
+                @RequestParam(value="id", required=false) int id, 
+                @RequestParam(value="funcionario", required=false) int funcionario, 
+                @RequestParam(value="restaurante", required=false) int restaurante,
+                @RequestParam(value="data", required=false) String data){          
+                                                                   
+               
+                Voto voto = new Voto();
+                voto.setId(id);
+                voto.setFuncionario(funcionarioService.findById(funcionario));
+                voto.setRestaurante(restauranteService.findById(restaurante));
+                voto.setData(LocalDate.parse(data));
+                votoService.saveVoto(voto);
+                model.addAttribute("success", "Voto registrado com sucesso");
+                return "success";              
+		
+	}
         
 	@RequestMapping(value = { "/voto/edit/{id}" }, method = RequestMethod.GET)
 	public String editVoto(@PathVariable int id, ModelMap model) {

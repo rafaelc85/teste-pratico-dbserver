@@ -1,5 +1,6 @@
 package br.com.dbserver.service;
 
+import br.com.dbserver.model.Funcionario;
 import java.util.List;
 
 import br.com.dbserver.model.Voto;
@@ -16,6 +17,6 @@ public interface VotoService {
 
 	List<Voto> findAllVotos();
         
-        
+        String validaVoto(Voto voto, Funcionario funcionario);
 	
 }

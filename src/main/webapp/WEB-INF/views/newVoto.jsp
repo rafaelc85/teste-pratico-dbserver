@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Cadastro de novo Funcionario</title>
+	<title>Novo voto de Funcionario em Restaurante</title>
 
 <style>
 

@@ -59,9 +59,6 @@ public class Voto {
 
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
-        if(!restaurante.getVotos().contains(this)){
-            restaurante.getVotos().add(this);
-        }
     }
 
     public LocalDate getData() {
