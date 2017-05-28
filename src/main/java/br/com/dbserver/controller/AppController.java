@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
+import br.com.dbserver.model.RestauranteDia;
 import br.com.dbserver.model.Voto;
 import br.com.dbserver.service.FuncionarioService;
+import br.com.dbserver.service.RestauranteDiaService;
 import br.com.dbserver.service.RestauranteService;
 import br.com.dbserver.service.VotoService;
 import org.joda.time.LocalDate;
@@ -29,6 +31,9 @@ public class AppController {
         
         @Autowired
 	VotoService votoService;
+        
+        @Autowired
+	RestauranteDiaService restauranteDiaService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -48,8 +53,18 @@ public class AppController {
                 List<Voto> votosDia = votoService.findVotosByDate(new LocalDate());
 		model.addAttribute("votosDia", votosDia);
                 
-                //Restaurante restauranteDia = 
+                List<RestauranteDia> restaurantesDia = restauranteDiaService.findAllRestaurantesDia();
+		model.addAttribute("restaurantesDia", restaurantesDia);
                 
+                LocalDate data = new LocalDate(); 
+                RestauranteDia r = restauranteDiaService.findByData(data);
+                Restaurante restaurateDoDia;
+                if(r!=null) restaurateDoDia = r.getRestaurante();
+                else{
+                    restaurateDoDia = votoService.selecionarRestauranteDia(data, restaurantesDia);
+                    restauranteDiaService.saveRestauranteDia(new RestauranteDia(restaurateDoDia, data));
+                }
+                model.addAttribute("restauranteDoDia", restaurateDoDia.getNome());
                 return "home";
 	}
 

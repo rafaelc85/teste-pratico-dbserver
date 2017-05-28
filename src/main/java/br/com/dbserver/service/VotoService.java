@@ -2,6 +2,7 @@ package br.com.dbserver.service;
 
 import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
+import br.com.dbserver.model.RestauranteDia;
 import java.util.List;
 
 import br.com.dbserver.model.Voto;
@@ -23,6 +24,6 @@ public interface VotoService {
         
         List<Voto> findVotosByDate(LocalDate data);
         
-        Restaurante getRestauranteDia(LocalDate data);
+        Restaurante selecionarRestauranteDia(LocalDate data, List<RestauranteDia> restaurantesDia);
 	
 }

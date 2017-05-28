@@ -100,5 +100,29 @@
 			</tr>
 		</c:forEach>
 	</table>
+        
+        <h2>Lista de Restaurantes escolhidos por dia</h2>	
+	<table>
+		<tr>
+			<td>ID</td><td>Restaurante</td><td>Data</td>
+		</tr>
+		<c:forEach items="${restaurantesDia}" var="restauranteDia">
+			<tr>
+			<td>${restauranteDia.id}</td>
+			<td>
+                            ${restauranteDia.restaurante.nome}
+                        </td>
+                        <td>                       
+                            ${restauranteDia.data}
+                        </td>
+			</tr>
+		</c:forEach>
+	</table>
+        
+        <h2>O restaurante escolhido para o dia de hoje foi o ${restauranteDoDia}</h2>
+        
+        <br/>
+        <br/>
+        <br/>
 </body>
 </html>
