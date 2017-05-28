@@ -76,5 +76,29 @@
 	</table>
 	<br/>
 	<a href="<c:url value='/voto/new' />">Adicionar voto</a>
+        
+        <h2>Lista de Votos de hoje</h2>	
+	<table>
+		<tr>
+			<td>ID</td><td>Funcionario</td><td>Restaurante</td><td>Data</td><td></td>
+		</tr>
+		<c:forEach items="${votosDia}" var="voto">
+			<tr>
+			<td>${voto.id}</td>
+			<td>
+                            <c:forEach items="${funcionarios}" var="funcionario">
+                                <c:if test="${funcionario.id == voto.funcionario.id}">${voto.funcionario.nome}</c:if>
+                            </c:forEach>
+                        </td>
+                        <td>                       
+                            <c:forEach items="${restaurantes}" var="restaurante">
+                                <c:if test="${restaurante.id == voto.restaurante.id}">${voto.restaurante.nome}</c:if>
+                            </c:forEach>
+                        </td>
+                        <td>${voto.data}</td>
+			<td><a href="<c:url value='/voto/delete/${voto.id}' />">remover</a></td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

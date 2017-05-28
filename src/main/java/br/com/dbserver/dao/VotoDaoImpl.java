@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import br.com.dbserver.model.Voto;
+import org.joda.time.LocalDate;
 
 @Repository("votoDao")
 public class VotoDaoImpl extends AbstractDao<Integer, Voto> implements VotoDao {
@@ -37,6 +38,12 @@ public class VotoDaoImpl extends AbstractDao<Integer, Voto> implements VotoDao {
         public List<Voto> findVotosByFuncionario(Funcionario funcionario) {
             Criteria criteria = createEntityCriteria();
             criteria.add(Restrictions.eq("funcionario", funcionario));
+            return (List<Voto>) criteria.list();  
+        }
+
+        public List<Voto> findVotosByDate(LocalDate data) {
+            Criteria criteria = createEntityCriteria();
+            criteria.add(Restrictions.eq("data", data));
             return (List<Voto>) criteria.list();  
         }
 }

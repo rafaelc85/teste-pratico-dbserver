@@ -1,6 +1,5 @@
 package br.com.dbserver.service;
 
-import br.com.dbserver.configuration.DateUtils;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.dbserver.dao.VotoDao;
 import br.com.dbserver.model.Funcionario;
+import br.com.dbserver.model.Restaurante;
 import br.com.dbserver.model.Voto;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 @Service("votoService")
 @Transactional
@@ -49,10 +46,13 @@ public class VotoServiceImpl implements VotoService {
 		return dao.findAllVotos();
 	}
         
+        public List<Voto> findVotosByDate(LocalDate data) {
+            return dao.findVotosByDate(data);
+        }
+        
         /*  regra 1 - apenas um voto por dia por funcionario
             regra 2 - mesmo restaurante só pode ser escolhido uma vez na semana por funcionario 
-            se retornar vazio é pq o voto é valido, caso contrário retorna a mensagem especificando o erro
-        */
+            se retornar null é pq o voto é valido, caso contrário retorna a mensagem especificando o erro */        
         public String validaVoto(Voto voto, Funcionario funcionario) {
             if (voto==null || funcionario==null) return "O voto e o funcionario devem ser especificados";
             List<Voto> votos;
@@ -71,18 +71,16 @@ public class VotoServiceImpl implements VotoService {
             return null;
         }
                
+        //retorna true se as datas estiverem na mesma semana ou falso caso contrario
         public static boolean isSameWeek(final Date d1, final Date d2) {
             if ((d1 == null) || (d2 == null))
-                throw new IllegalArgumentException("The date must not be null");
+                throw new IllegalArgumentException("Valor da Data nao pode ser null");
 
             return isSameWeek(new DateTime(d1), new DateTime(d2));
         }
-
         public static boolean isSameWeek(final DateTime d1, final DateTime d2) {
             if ((d1 == null) || (d2 == null))
-                throw new IllegalArgumentException("The date must not be null");
-
-            // It is important to use week of week year & week year
+                throw new IllegalArgumentException("Valor da Data nao pode ser null");
 
             final int week1 = d1.getWeekOfWeekyear();
             final int week2 = d2.getWeekOfWeekyear();
@@ -93,12 +91,21 @@ public class VotoServiceImpl implements VotoService {
             final int era1 = d1.getEra();
             final int era2 = d2.getEra();
 
-            // Return true if week, year and era matches
             if ((week1 == week2) && (year1 == year2) && (era1 == era2))
                 return true;
 
-            // Return false if none of the conditions are satisfied
             return false;
         }
+
+        public Restaurante getRestauranteDia(LocalDate data) {
+            Restaurante restauranteDia;
+            List<Voto> votosDia = dao.findVotosByDate(data);
+            for(int i=0;i<votosDia.size();i++){
+                
+            }                    
+            return null;
+        }
+
+   
 	
 }
