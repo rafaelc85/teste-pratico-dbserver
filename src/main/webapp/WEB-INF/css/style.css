@@ -1,0 +1,21 @@
+/*
+*/
+/* 
+    Created on : 26/05/2017, 21:32:39
+    Author     : Rafael Coutinho <rafaelc85@gmail.com>
+*/
+h1, h2{
+     text-align: center;   
+}
+h1{
+    font-size: 25px;    
+}
+h2{   
+    font-size: 20px;
+}
+.container{
+    width: 1016px;
+    padding: 5%;
+    font-size: 12px;
+}
+
