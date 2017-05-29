@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <restaurante id="1" NOME="RESTAURANTE1"/>
+    <restaurante id="2" NOME="RESTAURANTE2"/>
+</dataset>

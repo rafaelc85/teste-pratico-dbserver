@@ -46,7 +46,7 @@ public class RestauranteController {
 	}
         
 	@RequestMapping(value = { "/restaurante/edit/{id}" }, method = RequestMethod.GET)
-	public String editFuncionario(@PathVariable int id, ModelMap model) {
+	public String editRestaurante(@PathVariable int id, ModelMap model) {
 		Restaurante restaurante = restauranteService.findById(id);
 		model.addAttribute("restaurante", restaurante);
 		model.addAttribute("edit", true);
@@ -54,7 +54,7 @@ public class RestauranteController {
 	}
         
 	@RequestMapping(value = { "/restaurante/edit/{id}" }, method = RequestMethod.POST)
-	public String updateFuncionario(@Valid Restaurante restaurante, BindingResult result,
+	public String updateRestaurante(@Valid Restaurante restaurante, BindingResult result,
 			ModelMap model, @PathVariable int id) {
 
 		if (result.hasErrors()) {
@@ -66,7 +66,7 @@ public class RestauranteController {
 	}
 
 	@RequestMapping(value = { "/restaurante/delete/{id}" }, method = RequestMethod.GET)
-	public String deleteFuncionario(@PathVariable int id) {
+	public String deleteRestaurante(@PathVariable int id) {
 		restauranteService.deleteRestauranteById(id);
 		return "redirect:/list";
 	}

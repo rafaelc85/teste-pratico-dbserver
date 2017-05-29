@@ -96,25 +96,38 @@ public class VotoServiceImpl implements VotoService {
         //Implementa regra 2 e sorteia o restaurante do dia
         public Restaurante selecionarRestauranteDia(LocalDate data, List<RestauranteDia> restaurantesDia) {
             List<Voto> votosDia = dao.findVotosByDate(data);
+            if (votosDia == null) return null;                
+            
             Date d1, d2;
             d1 = data.toDateTimeAtStartOfDay().toDate();
             
-            //Excluindo as escolhas de restaurantes feitas ha mais de uma semana
-            for(int i=0;i<restaurantesDia.size();i++){
-                d2 = restaurantesDia.get(i).getData().toDateTimeAtStartOfDay().toDate();
-                if(!isSameWeek(d1, d2)) restaurantesDia.remove(i);
+            //Excluindo as escolhas de restaurantes feitas ha mais de uma semana      
+            int k=0;
+            while(k<restaurantesDia.size()){
+                d2 = restaurantesDia.get(k).getData().toDateTimeAtStartOfDay().toDate();
+                if(!isSameWeek(d1, d2)) {
+                    restaurantesDia.remove(k);
+                } else
+                    k++;
             }
-            
+
             //Excluindo da lista de votos os restaurantes que já foram escolhidos na semana - criterio 2
-            for(int i=0;i<votosDia.size();i++){
+            k=0; 
+            while(k<votosDia.size()){
                 for(int j=0;j<restaurantesDia.size();j++){
-                    if(votosDia.get(i).getRestaurante().getId() == 
+                    try{
+                        if(votosDia.get(k).getRestaurante().getId() == 
                             restaurantesDia.get(j).getRestaurante().getId()){
-                        votosDia.remove(i);
-                        break;
-                    } 
+
+                                    votosDia.remove(k); 
+                                    k--;                               
+                        } 
+                    } catch (Exception e){
+                        System.out.println("Erro ao remover elemento");
+                    }
                 }
-            }
+                k++;
+            }              
             
             //Contando os votos de cada restaurante no dia
             List<ContaVoto> contaVoto = new ArrayList<ContaVoto>();
@@ -135,7 +148,7 @@ public class VotoServiceImpl implements VotoService {
             //Selecionando o numero maximo de votos obtidos por um restaurante
             int maxVotos=0;
             for(int i=0;i<contaVoto.size();i++){
-                if(contaVoto.get(i).getCount()>maxVotos) maxVotos = contaVoto.get(i).getCount();
+                if(contaVoto.get(i).getCount()>=maxVotos) maxVotos = contaVoto.get(i).getCount();
             }
             
             //Selecionando os restaurantes que possuem o numero maximo de votos
@@ -146,9 +159,17 @@ public class VotoServiceImpl implements VotoService {
             }
             
             //Sorteando um dos restaurantes que tem mais votos e obedece os criterios
-            Collections.shuffle(restaurantesMaisVotados);            
+            Collections.shuffle(restaurantesMaisVotados);
             
-            return restaurantesMaisVotados.get(0);
+            try{
+                return restaurantesMaisVotados.get(0);
+            }catch (Exception e){
+                return null;
+            }
+            
+            
+
+                     
         }
            
 

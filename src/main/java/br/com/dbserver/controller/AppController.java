@@ -17,7 +17,9 @@ import br.com.dbserver.service.FuncionarioService;
 import br.com.dbserver.service.RestauranteDiaService;
 import br.com.dbserver.service.RestauranteService;
 import br.com.dbserver.service.VotoService;
+import java.util.ArrayList;
 import org.joda.time.LocalDate;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/")
@@ -37,6 +39,9 @@ public class AppController {
 	
 	@Autowired
 	MessageSource messageSource;
+        
+        LocalDate data = new LocalDate(); 
+        //LocalDate data = new LocalDate(2017,06,02);
 
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
 	public String home(ModelMap model) {
@@ -54,18 +59,42 @@ public class AppController {
 		model.addAttribute("votosDia", votosDia);
                 
                 List<RestauranteDia> restaurantesDia = restauranteDiaService.findAllRestaurantesDia();
-		model.addAttribute("restaurantesDia", restaurantesDia);
+		model.addAttribute("restaurantesDia", restaurantesDia);                         
                 
-                LocalDate data = new LocalDate(); 
                 RestauranteDia r = restauranteDiaService.findByData(data);
-                Restaurante restaurateDoDia;
-                if(r!=null) restaurateDoDia = r.getRestaurante();
-                else{
-                    restaurateDoDia = votoService.selecionarRestauranteDia(data, restaurantesDia);
-                    restauranteDiaService.saveRestauranteDia(new RestauranteDia(restaurateDoDia, data));
+                Restaurante restauranteDoDia;
+                
+                //se o restaurante ja foi escolhido e armazenado no banco
+                if(r!=null) {
+                    restauranteDoDia = r.getRestaurante();
+                    model.addAttribute("msgRestauranteDoDia", 
+                            "O restaurante do dia é: " + restauranteDoDia.getNome());
                 }
-                model.addAttribute("restauranteDoDia", restaurateDoDia.getNome());
+                else{
+                    restauranteDoDia = votoService.selecionarRestauranteDia(data, 
+                            new ArrayList<RestauranteDia>(restaurantesDia));
+                                                           
+                    //se nao foi possivel selecionar um restaurante (nenhum voto)
+                    if(restauranteDoDia==null) 
+                        model.addAttribute("msgRestauranteDoDia", "Nenhum voto valido ainda para o dia atual");
+                    else{ 
+                        model.addAttribute("msgRestauranteDoDia", 
+                                "Restaurante do dia ainda não escolhido, clique abaixo para selecionar");
+                        model.addAttribute("sorteio", true);
+                        model.addAttribute("restauranteDoDia", restauranteDoDia);                 
+                    } 
+                }
+                
                 return "home";
 	}
+        
+        @RequestMapping(value = { "/sorteio/{id}" }, method = RequestMethod.GET)
+	public String salvarRestauranteDia(@PathVariable int id) {               
+                restauranteDiaService.saveRestauranteDia(
+                        new RestauranteDia(restauranteService.findById(id), data));
+		return "redirect:/list";
+	}
+        
+        
 
 }

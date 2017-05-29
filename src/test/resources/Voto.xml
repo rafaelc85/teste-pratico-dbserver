@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <voto id="1" FUNCIONARIO_ID="1" RESTAURANTE_ID="1" DATA="2017-05-28"/>
+    <voto id="2" FUNCIONARIO_ID="2" RESTAURANTE_ID="2" DATA="2017-06-15"/>
+</dataset>

@@ -36,6 +36,15 @@ public class Voto {
     @Column(name = "data", nullable = false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate data;
+    
+    public Voto() {} 
+
+    public Voto(int id, Funcionario funcionario, Restaurante restaurante, LocalDate data) {
+        this.id = id;
+        this.funcionario = funcionario;
+        this.restaurante = restaurante;
+        this.data = data;
+    }     
 
     public int getId() {
         return this.id;

@@ -16,7 +16,14 @@
 </head>
 
 
-<body>   
+<body>
+        <h2>${msgRestauranteDoDia}</h2>         
+        <c:choose>
+            <c:when test="${sorteio}">
+                    <a href="<c:url value='/sorteio/${restauranteDoDia.id}' />">Escolher restaurante</a>
+            </c:when>
+        </c:choose>
+                    
         <h2>Lista de Funcionarios</h2>	
 	<table>
 		<tr>
@@ -118,9 +125,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-        
-        <h2>O restaurante escolhido para o dia de hoje foi o ${restauranteDoDia}</h2>
-        
+       
         <br/>
         <br/>
         <br/>

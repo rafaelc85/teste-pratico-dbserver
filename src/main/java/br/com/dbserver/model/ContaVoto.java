@@ -27,4 +27,10 @@ public class ContaVoto {
     public void incrementCount(){
         this.count++;
     }
+
+    @Override
+    public String toString() {
+        return "ContaVoto{" + "restaurante=" + restaurante + ", count=" + count + '}';
+    }
+    
 }

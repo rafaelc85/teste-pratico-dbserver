@@ -21,7 +21,11 @@ public class VotoDaoImpl extends AbstractDao<Integer, Voto> implements VotoDao {
 	}
 
 	public void saveVoto(Voto voto) {
-		persist(voto);
+            try{
+                persist(voto);
+            } catch(Exception e){
+                System.out.println("Erro ao salvar o objeto");
+            }            
 	}
 
 	public void deleteVotoById(int id) {

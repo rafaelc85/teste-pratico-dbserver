@@ -45,16 +45,21 @@ public class VotoController {
                
         @RequestMapping(value = { "/voto/new" }, method = RequestMethod.GET)
 	public String newVoto(ModelMap model) {
-                
-                List<Funcionario> funcionarios = funcionarioService.findAllFuncionarios();
-                model.addAttribute("funcionarios", funcionarios);
+                try{
+                    List<Funcionario> funcionarios = funcionarioService.findAllFuncionarios();
+                    model.addAttribute("funcionarios", funcionarios);
 
-                List<Restaurante> restaurantes = restauranteService.findAllRestaurantes();
-                model.addAttribute("restaurantes", restaurantes);
+                    List<Restaurante> restaurantes = restauranteService.findAllRestaurantes();
+                    model.addAttribute("restaurantes", restaurantes);
 
-                Voto voto = new Voto();
-                model.addAttribute("voto", voto);
-                model.addAttribute("edit", false);
+                    Voto voto = new Voto();
+                    model.addAttribute("voto", voto);
+                    model.addAttribute("edit", false);
+                    return "newVoto";
+                    
+                } catch (Exception e){
+                    System.out.println("Erro ao adicionar o voto");
+                }
                 return "newVoto";
 	}
         
@@ -67,11 +72,15 @@ public class VotoController {
                         return "success";
 			//return "newVoto";
 		}
-                int id;
-                id = (int)Integer.parseInt(request.getParameter("funcionario_id")); 
-                voto.setFuncionario(funcionarioService.findById(id));
-                id = (int)Integer.parseInt(request.getParameter("restaurante_id")); 
-                voto.setRestaurante(restauranteService.findById(id));
+                try{
+                    int id;
+                    id = (int)Integer.parseInt(request.getParameter("funcionario_id")); 
+                    voto.setFuncionario(funcionarioService.findById(id));
+                    id = (int)Integer.parseInt(request.getParameter("restaurante_id")); 
+                    voto.setRestaurante(restauranteService.findById(id));
+                }catch(Exception e){
+                    System.out.println("Erro ao validar a identificacao do funcionario e do restaurante");
+                }
                 
                 String validaVoto = votoService.validaVoto(voto, voto.getFuncionario());                
                 if(validaVoto!=null){
@@ -79,7 +88,7 @@ public class VotoController {
                     return "success";
                 }
 		votoService.saveVoto(voto);
-		model.addAttribute("success", "Voto registrado com sucesso: " + voto.toString());
+		model.addAttribute("success", "Voto registrado com sucesso");
 		return "success";
 	}
         
