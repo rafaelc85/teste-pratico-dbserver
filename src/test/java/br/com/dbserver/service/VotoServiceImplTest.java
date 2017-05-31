@@ -43,29 +43,29 @@ public class VotoServiceImplTest {
 		votos = getVotosList();
 	}
         
-        /*
+        
         @Test
 	public void validaRegra1WhenAlreadyVoted(){
-                
-		//when(dao.findById(anyInt())).thenReturn(voto);
-		//Assert.assertEquals(votoService.findById(emp.getId()),emp);
-                //when(dao.findAllVotos()).thenReturn(votos);
-                //Voto voto = votos.get(0);
-                //when(dao.findById(anyInt())).thenReturn(voto);
+                when(dao.findVotosByFuncionario(any(Funcionario.class))).thenReturn(votos);
                 Voto voto = votos.get(0);
-                //when(dao.findVotosByFuncionarioId(voto.getFuncionario().getId())).thenReturn(votos);                
-                Assert.assertEquals(votoService.validaRegra1(voto), "funcionario ja deu seu voto para este dia");
+                Assert.assertEquals(votoService.validaRegra1(voto), "Erro: funcionario ja deu seu voto para este dia");
 	}
         
+        @Test
+	public void validaRegra1WhithSuccess(){
+                when(dao.findVotosByFuncionario(any(Funcionario.class))).thenReturn(votos);
+                Voto voto = new Voto();
+                voto.setId(0);
+                voto.setFuncionario(votos.get(0).getFuncionario());
+                voto.setData(new LocalDate(2017,07,22));		
+		Assert.assertEquals(votoService.validaRegra1(voto), null);
+	}   
         
         @Test
-	public void validaRegra1WhenNotVoted(){
-                Voto voto = votos.get(0);
-		votos.clear();
-		Assert.assertEquals(votoService.validaRegra1(voto), "Nenhum voto encontrado para o criterio");
-	} 
-*/
-        
+	public void validaRegra1WhenVotoNull(){
+                Voto voto = null;		
+		Assert.assertEquals(votoService.validaRegra1(voto), "Voto vazio");
+	}      
 
 	@Test
 	public void findById(){
