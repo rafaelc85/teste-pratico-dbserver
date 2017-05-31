@@ -6,47 +6,58 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Cadastro de novo Restaurante</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Cadastro de novo Restaurante</title>
 
-<style>
+    <link href="<c:url value="/resources/theme1/css/style.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/theme1/css/nomalize.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/theme1/css/forms.css" />" rel="stylesheet">
 
-	.error {
-		color: #ff0000;
-	}
-</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
+
+    <link href="<c:url value="/resources/theme1/css/avgrund.css" />" rel="stylesheet">
 
 </head>
+             
+<body class="body"> 
+<div class="container">
+    <header>
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Cadastro de novo Restaurante</h1>
+            </div>
+            <div id="show" class="col-md-2">
+                <img src="<c:url value='/resources/theme1/img/help.png' />" class="help" title="Help" alt="Help">
+            </div>
+        </div>
+    </header>        
+    
+    <section id="main" class="clearfix">    
+        <form:form method="POST" modelAttribute="restaurante">
+            <form:input type="hidden" path="id" id="id"/>                    
+            <fieldset>
+              <legend><span class="number">1</span>Informações básicas</legend>
+              <label for="nome">Nome: </label>
+              <form:input path="nome" id="nome"/>
+              <form:errors path="nome" cssClass="error"/>
 
-<body>
+                <c:choose>
+                    <c:when test="${edit}">
+                            <button type="submit"/>Atualizar</button>
+                    </c:when>
+                    <c:otherwise>
+                            <button type="submit"/>Cadastrar</button>
+                    </c:otherwise>
+                </c:choose>
+            </fieldset>
 
-	<h2>Cadastro de novo Restaurante</h2>
- 
-	<form:form method="POST" modelAttribute="restaurante">
-		<form:input type="hidden" path="id" id="id"/>
-		<table>
-			<tr>
-				<td><label for="nome">Nome </label> </td>
-				<td><form:input path="nome" id="nome"/></td>
-				<td><form:errors path="nome" cssClass="error"/></td>
-		    </tr>
-	
-			<tr>
-				<td colspan="3">
-					<c:choose>
-						<c:when test="${edit}">
-							<input type="submit" value="Atualizar"/>
-						</c:when>
-						<c:otherwise>
-							<input type="submit" value="Cadastrar"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
-			</tr>
-		</table>
+            <p>Voltar para a <a href="<c:url value='/list' />">Home</a></p>                
 	</form:form>
-	<br/>
-	<br/>
-	Voltar para a <a href="<c:url value='/list' />">Home</a>
+    </section>           
+       
+</div>                
+<c:import url="includes/footer.jsp"></c:import> 
 </body>
 </html>

@@ -110,8 +110,8 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${springframework.version}</version>
-			<scope>test</scope>
+			<version>4.0.6.RELEASE</version>
+		 <type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>

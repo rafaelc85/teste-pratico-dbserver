@@ -79,7 +79,7 @@ public class AppController {
                         model.addAttribute("msgRestauranteDoDia", "Nenhum voto valido ainda para o dia atual");
                     else{ 
                         model.addAttribute("msgRestauranteDoDia", 
-                                "Restaurante do dia ainda não escolhido, clique abaixo para selecionar");
+                                "Restaurante do dia ainda não escolhido");
                         model.addAttribute("sorteio", true);
                         model.addAttribute("restauranteDoDia", restauranteDoDia);                 
                     } 

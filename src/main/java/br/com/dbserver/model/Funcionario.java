@@ -22,7 +22,8 @@ public class Funcionario {
     @Size(min=3, max=50)
     @Column(name = "nome", nullable = false)
     private String nome;
-
+    
+    @Size(min=3, max=50)
     @Column(name = "funcao", nullable = false)
     private String funcao;
 

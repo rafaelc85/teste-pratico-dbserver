@@ -68,9 +68,7 @@ public class VotoController {
                 BindingResult result, ModelMap model,  HttpServletRequest request) {
                                                             
 		if (result.hasErrors()) {
-                        model.addAttribute("success", "dados do voto: " + voto.toString());
-                        return "success";
-			//return "newVoto";
+                        return "newVoto";
 		}
                 try{
                     int id;
@@ -82,7 +80,7 @@ public class VotoController {
                     System.out.println("Erro ao validar a identificacao do funcionario e do restaurante");
                 }
                 
-                String validaVoto = votoService.validaVoto(voto, voto.getFuncionario());                
+                String validaVoto = votoService.validaRegra1(voto);                
                 if(validaVoto!=null){
                     model.addAttribute("success", validaVoto);
                     return "success";

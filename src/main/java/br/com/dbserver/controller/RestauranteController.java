@@ -38,7 +38,7 @@ public class RestauranteController {
 			ModelMap model) {
             
 		if (result.hasErrors()) {
-			return "/restaurante/new";
+			return "newRestaurante";
 		}	
 		restauranteService.saveRestaurante(restaurante);
 		model.addAttribute("success", "Restaurante " + restaurante.getNome() + " cadastrado com sucesso");
@@ -58,7 +58,7 @@ public class RestauranteController {
 			ModelMap model, @PathVariable int id) {
 
 		if (result.hasErrors()) {
-			return "/restaurante/new";
+			return "newRestaurante";
 		}
 		restauranteService.updateRestaurante(restaurante);
 		model.addAttribute("success", "Restaurante " + restaurante.getNome()+ " editado com suceesso");

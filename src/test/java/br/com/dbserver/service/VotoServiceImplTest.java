@@ -4,7 +4,7 @@ import br.com.dbserver.dao.VotoDao;
 import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
 import br.com.dbserver.model.Voto;
-import br.com.dbserver.model.Voto;
+import br.com.dbserver.service.VotoServiceImpl;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.atLeastOnce;
@@ -42,6 +42,30 @@ public class VotoServiceImplTest {
 		MockitoAnnotations.initMocks(this);
 		votos = getVotosList();
 	}
+        
+        /*
+        @Test
+	public void validaRegra1WhenAlreadyVoted(){
+                
+		//when(dao.findById(anyInt())).thenReturn(voto);
+		//Assert.assertEquals(votoService.findById(emp.getId()),emp);
+                //when(dao.findAllVotos()).thenReturn(votos);
+                //Voto voto = votos.get(0);
+                //when(dao.findById(anyInt())).thenReturn(voto);
+                Voto voto = votos.get(0);
+                //when(dao.findVotosByFuncionarioId(voto.getFuncionario().getId())).thenReturn(votos);                
+                Assert.assertEquals(votoService.validaRegra1(voto), "funcionario ja deu seu voto para este dia");
+	}
+        
+        
+        @Test
+	public void validaRegra1WhenNotVoted(){
+                Voto voto = votos.get(0);
+		votos.clear();
+		Assert.assertEquals(votoService.validaRegra1(voto), "Nenhum voto encontrado para o criterio");
+	} 
+*/
+        
 
 	@Test
 	public void findById(){
@@ -64,6 +88,7 @@ public class VotoServiceImplTest {
 		votoService.updateVoto(emp);
 		verify(dao, atLeastOnce()).findById(anyInt());
 	}
+        
 	
 	@Test
 	public void findAllVotos(){

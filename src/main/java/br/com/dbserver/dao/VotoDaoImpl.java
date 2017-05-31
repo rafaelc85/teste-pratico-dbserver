@@ -39,7 +39,7 @@ public class VotoDaoImpl extends AbstractDao<Integer, Voto> implements VotoDao {
             return (List<Voto>) criteria.list();
 	}
 
-        public List<Voto> findVotosByFuncionario(Funcionario funcionario) {
+        public List<Voto> findVotosByFuncionario(Funcionario funcionario) {           
             Criteria criteria = createEntityCriteria();
             criteria.add(Restrictions.eq("funcionario", funcionario));
             return (List<Voto>) criteria.list();  
