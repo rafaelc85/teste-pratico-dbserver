@@ -1,6 +1,5 @@
 package br.com.dbserver.service;
 
-import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
 import br.com.dbserver.model.RestauranteDia;
 import java.util.List;
@@ -20,7 +19,7 @@ public interface VotoService {
 
 	List<Voto> findAllVotos();
         
-        String validaVoto(Voto voto, Funcionario funcionario);
+        String validaRegra1(Voto voto);
         
         List<Voto> findVotosByDate(LocalDate data);
         

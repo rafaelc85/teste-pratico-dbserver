@@ -1,0 +1,110 @@
+/*
+*/
+/* 
+    Created on : 26/05/2017, 21:32:39
+    Author     : Rafael Coutinho <rafaelc85@gmail.com>
+*/
+body.body{
+    background-color: #efefef; 
+}
+
+body .container{
+    width: 1016px;
+    font-size: 12px;
+    border: 1px solid #ccccff;
+    border-bottom: 0;
+    border-top: 0;
+    background-color: #fff;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.container h1, .container h2{
+     text-align: center;   
+}
+.container h1{
+    font-size: 25px;    
+}
+.container h2, .container h2 a{   
+    font-size: 20px;
+}
+
+header{
+    background-color: #f4f7f8;  
+    height: 100px;
+    width: 100%;
+    border-bottom: 1px solid #ccccff;
+}
+
+header h1{    
+    margin-top: 0;
+    padding-top: 32px;
+}
+
+#main{
+    padding: 0% 2% 5% 2%;
+}
+
+thead{
+    text-align: center;    
+}
+
+.imgMaisInfo{
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    border: 0;    
+}
+
+.custom .avgrund-close {
+	float: left;
+	text-align: center;
+	font-size: 12px;
+	color: white;
+	padding: 8px 18px;
+	margin: 18px 0 0 20px;
+	text-decoration: none;
+	-webkit-transition: background 0.3s ease;
+	-moz-transition: background 0.3s ease;
+	-ms-transition: background 0.3s ease;
+	-o-transition: background 0.3s ease;
+	transition: background 0.3s ease;
+        top: 155px;
+        right: 145px;
+}
+
+.custom  .avgrund-close {
+	background: #74A599;
+}
+
+.custom  .avgrund-close:hover {
+    background: #9CBEB6;
+}
+
+.help{
+    padding-top: 10px;
+    
+}
+
+.error{
+    color: red;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 10px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; 
+    display: table; 
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+

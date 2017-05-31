@@ -38,7 +38,7 @@ public class FuncionarioController {
 			ModelMap model) {
             
 		if (result.hasErrors()) {
-			return "/funcionario/new";
+			return "newFuncionario";
 		}	
 		funcionarioService.saveFuncionario(funcionario);
 		model.addAttribute("success", "Funcionario " + funcionario.getNome() + " cadastrado com sucesso");
@@ -58,7 +58,7 @@ public class FuncionarioController {
 			ModelMap model, @PathVariable int id) {
 
 		if (result.hasErrors()) {
-			return "/funcionario/new";
+			return "newFuncionario";
 		}
 		funcionarioService.updateFuncionario(funcionario);
 		model.addAttribute("success", "Funcionario " + funcionario.getNome()+ " editado com suceesso");

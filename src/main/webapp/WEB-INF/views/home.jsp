@@ -1,31 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Home - DBServer Teste Prático</title>
     
-    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="<c:url value="/resources/theme1/css/style.css" />" rel="stylesheet">   
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
     
-    <link rel="stylesheet" href="readable/readable.css"> 
-  
+    <link href="<c:url value="/resources/theme1/css/avgrund.css" />" rel="stylesheet">
+    
+    <link href="<c:url value="/resources/theme1/css/sweetalert.css" />" rel="stylesheet">
+    <script src="<c:url value="/resources/theme1/js/sweetalert.min.js" />"></script>    
+    <script src="https://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+    
+    <script src="<c:url value="/resources/theme1/js/scripts.js" />"></script>
+    
 </head>
 
-<body>
+<body class="body"> 
 <div class="container">
-        <h1>${msgRestauranteDoDia}</h1>         
-        <c:choose>
-            <c:when test="${sorteio}">
-                    <h2><a href="<c:url value='/sorteio/${restauranteDoDia.id}' />">Escolher restaurante</a></h2>
-            </c:when>
-        </c:choose>
-                
-        
+    <header>
+        <div class="row">
+            <div class="col-md-10">
+                <h1>${msgRestauranteDoDia}         
+                <c:choose>
+                    <c:when test="${sorteio}">
+                            : <a href="<c:url value='/sorteio/${restauranteDoDia.id}' />">Escolher restaurante</a>
+                    </c:when>
+                </c:choose>
+                </h1>
+            </div>
+            <div id="show" class="col-md-2">
+                <img src="<c:url value='/resources/theme1/img/help.png' />" class="help" title="Help" alt="Help">
+            </div>
+        </div>
+    </header>        
+    
+    <section id="main" class="clearfix">    
         <div class="row">
             <div class="col-md-6">
                 <h1>Funcionarios</h1>	
@@ -41,7 +58,7 @@
                                 <td>${funcionario.id}</td>
                                 <td><a href="<c:url value='/funcionario/edit/${funcionario.id}' />">${funcionario.nome}</a></td>
                                 <td>${funcionario.funcao}</td>
-                                <td><a href="<c:url value='/funcionario/delete/${funcionario.id}' />">Remover</a></td>
+                                <td><a href="javascript:"  onclick="removeBox('<c:url value="/funcionario/delete/${funcionario.id}" />')" id="remover">Remover</a></td>
                                 </tr>
                         </c:forEach>
                     </tbody>
@@ -62,7 +79,7 @@
                                 <tr>
                                 <td>${restaurante.id}</td>
                                 <td><a href="<c:url value='/restaurante/edit/${restaurante.id}' />">${restaurante.nome}</a></td>
-                                <td><a href="<c:url value='/restaurante/delete/${restaurante.id}' />">Remover</a></td>
+                                <td><a href="javascript:"  onclick="removeBox('<c:url value="/restaurante/delete/${restaurante.id}" />')" id="remover">Remover</a></td>
                                 </tr>                     
 
                         </c:forEach>
@@ -98,7 +115,7 @@
                                     </c:forEach>
                                 </td>
                                 <td>${voto.data}</td>
-                                <td><a href="<c:url value='/voto/delete/${voto.id}' />">Remover</a></td>
+                                <td><a href="javascript:" onclick="removeBox('<c:url value="/voto/delete/${voto.id}" />')">Remover</a></td>
                                 </tr>
                         </c:forEach>
                     </tbody>
@@ -130,7 +147,7 @@
                                         </c:forEach>
                                     </td>
                                     <td>${voto.data}</td>
-                                    <td><a href="<c:url value='/voto/delete/${voto.id}' />">Remover</a></td>
+                                    <td><a href="javascript:" onclick="removeBox('<c:url value="/voto/delete/${voto.id}" />')">Remover</a></td>
                                     </tr>
                             </c:forEach>
                         </tbody>
@@ -154,7 +171,7 @@
                                     <td>
                                         ${restauranteDia.restaurante.nome}
                                     </td>
-                                    <td>                       
+                                    <td>                                  
                                         ${restauranteDia.data}
                                     </td>
                                     </tr>
@@ -163,16 +180,10 @@
                     </table>
                 </div>
             </div>
-
-        
-        
-        </div>
        
-        <br/>
-        <br/>
-        <br/>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="readable/readable.js"></script>
+        </div>
+    </section>
+</div>                
+<c:import url="includes/footer.jsp"></c:import>             
 </body>
 </html>

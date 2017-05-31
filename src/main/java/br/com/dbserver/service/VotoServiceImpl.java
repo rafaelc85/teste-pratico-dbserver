@@ -1,5 +1,6 @@
 package br.com.dbserver.service;
 
+import br.com.dbserver.configuration.Util;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import br.com.dbserver.model.Voto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 @Service("votoService")
@@ -56,43 +56,24 @@ public class VotoServiceImpl implements VotoService {
         
         /*  regra 1 - apenas um voto por dia por funcionario
           * se retornar null é pq o voto é valido, caso contrário retorna a mensagem especificando o erro */        
-        public String validaVoto(Voto voto, Funcionario funcionario) {
-            if (voto==null || funcionario==null) return "O voto e o funcionario devem ser especificados";
+        public String validaRegra1(Voto voto) {
+            if(voto==null) return "Voto vazio";
             List<Voto> votos;
-            votos = dao.findVotosByFuncionario(funcionario);
+            votos = dao.findVotosByFuncionario(voto.getFuncionario());
+            //votos = dao.findVotosByDate(voto.getData());
+            
+            if(votos.isEmpty()) return "Nenhum voto encontrado para o criterio";
+            
+            //Comparando as datas dos votos deste funcionario
             for(int i=0;i<votos.size();i++){
                 //regra 1
-                if(votos.get(i).getData().equals(voto.getData())) return "funcionario ja deu seu voto para este dia";                
+                if(votos.get(i).getData().equals(voto.getData())) 
+                    return "Erro: funcionario ja deu seu voto para este dia";                
             }
             return null;
         }
                
-        //retorna true se as datas estiverem na mesma semana ou falso caso contrario
-        public static boolean isSameWeek(final Date d1, final Date d2) {
-            if ((d1 == null) || (d2 == null))
-                throw new IllegalArgumentException("Valor da Data nao pode ser null");
-
-            return isSameWeek(new DateTime(d1), new DateTime(d2));
-        }
-        public static boolean isSameWeek(final DateTime d1, final DateTime d2) {
-            if ((d1 == null) || (d2 == null))
-                throw new IllegalArgumentException("Valor da Data nao pode ser null");
-
-            final int week1 = d1.getWeekOfWeekyear();
-            final int week2 = d2.getWeekOfWeekyear();
-
-            final int year1 = d1.getWeekyear();
-            final int year2 = d2.getWeekyear();
-
-            final int era1 = d1.getEra();
-            final int era2 = d2.getEra();
-
-            if ((week1 == week2) && (year1 == year2) && (era1 == era2))
-                return true;
-
-            return false;
-        }
-        
+ 
         //Implementa regra 2 e sorteia o restaurante do dia
         public Restaurante selecionarRestauranteDia(LocalDate data, List<RestauranteDia> restaurantesDia) {
             List<Voto> votosDia = dao.findVotosByDate(data);
@@ -105,7 +86,7 @@ public class VotoServiceImpl implements VotoService {
             int k=0;
             while(k<restaurantesDia.size()){
                 d2 = restaurantesDia.get(k).getData().toDateTimeAtStartOfDay().toDate();
-                if(!isSameWeek(d1, d2)) {
+                if(!Util.isSameWeek(d1, d2)) {
                     restaurantesDia.remove(k);
                 } else
                     k++;
@@ -118,7 +99,6 @@ public class VotoServiceImpl implements VotoService {
                     try{
                         if(votosDia.get(k).getRestaurante().getId() == 
                             restaurantesDia.get(j).getRestaurante().getId()){
-
                                     votosDia.remove(k); 
                                     k--;                               
                         } 
