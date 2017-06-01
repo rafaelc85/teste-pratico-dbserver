@@ -17,6 +17,5 @@ $(function() {
                 '<p>2 - Nenhum restaurante pode ser repetido na mesma semana.</p>' 
         });
 });
-
-</script> 
+</script>
 

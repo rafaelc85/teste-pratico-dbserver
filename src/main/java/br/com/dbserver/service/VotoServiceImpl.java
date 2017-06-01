@@ -60,9 +60,8 @@ public class VotoServiceImpl implements VotoService {
             if(voto==null) return "Voto vazio";
             List<Voto> votos;
             votos = dao.findVotosByFuncionario(voto.getFuncionario());
-            //votos = dao.findVotosByDate(voto.getData());
             
-            if(votos.isEmpty()) return "Nenhum voto encontrado para o criterio";
+            if(votos.isEmpty()) return null;
             
             //Comparando as datas dos votos deste funcionario
             for(int i=0;i<votos.size();i++){
@@ -72,42 +71,34 @@ public class VotoServiceImpl implements VotoService {
             }
             return null;
         }
-               
- 
-        //Implementa regra 2 e sorteia o restaurante do dia
-        public Restaurante selecionarRestauranteDia(LocalDate data, List<RestauranteDia> restaurantesDia) {
-            List<Voto> votosDia = dao.findVotosByDate(data);
-            if (votosDia == null) return null;                
-            
+        
+        /*  regra 2 - cada restaurante no maximo uma vez por semana
+          * se retornar null é pq o restaurante ainda nao foi escolhido na semana, 
+          * caso contrário retorna a mensagem especificando o erro */        
+        public String validaRegra2(Voto voto, List<RestauranteDia> restaurantesDia) {
             Date d1, d2;
-            d1 = data.toDateTimeAtStartOfDay().toDate();
+            d1 = voto.getData().toDateTimeAtStartOfDay().toDate();
             
-            //Excluindo as escolhas de restaurantes feitas ha mais de uma semana      
+            //Obtendo todas as escolhas de restaurantes da semana
             int k=0;
             while(k<restaurantesDia.size()){
                 d2 = restaurantesDia.get(k).getData().toDateTimeAtStartOfDay().toDate();
                 if(!Util.isSameWeek(d1, d2)) {
-                    restaurantesDia.remove(k);
-                } else
-                    k++;
-            }
-
-            //Excluindo da lista de votos os restaurantes que já foram escolhidos na semana - criterio 2
-            k=0; 
-            while(k<votosDia.size()){
-                for(int j=0;j<restaurantesDia.size();j++){
-                    try{
-                        if(votosDia.get(k).getRestaurante().getId() == 
-                            restaurantesDia.get(j).getRestaurante().getId()){
-                                    votosDia.remove(k); 
-                                    k--;                               
-                        } 
-                    } catch (Exception e){
-                        System.out.println("Erro ao remover elemento");
-                    }
+                    restaurantesDia.remove(k);                    
+                } else { 
+                    if(restaurantesDia.get(k).getRestaurante().getId() == (voto.getRestaurante().getId()))
+                        return "Esse restaurante ja foi escolhido nesta semana";
+                    k++;                   
                 }
-                k++;
-            }              
+            }
+            return null; 
+        }
+               
+ 
+        //sorteia o restaurante do dia baseado nos votos recebidos
+        public Restaurante selecionarRestauranteDia(LocalDate data) {  
+            List<Voto> votosDia = dao.findVotosByDate(data);
+            if(votosDia.isEmpty()) return null;
             
             //Contando os votos de cada restaurante no dia
             List<ContaVoto> contaVoto = new ArrayList<ContaVoto>();
@@ -140,7 +131,7 @@ public class VotoServiceImpl implements VotoService {
             
             //Sorteando um dos restaurantes que tem mais votos e obedece os criterios
             Collections.shuffle(restaurantesMaisVotados);
-            
+             
             try{
                 return restaurantesMaisVotados.get(0);
             }catch (Exception e){
@@ -148,7 +139,6 @@ public class VotoServiceImpl implements VotoService {
             }
             
             
-
                      
         }
            

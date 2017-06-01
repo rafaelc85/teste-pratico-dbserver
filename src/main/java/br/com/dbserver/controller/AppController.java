@@ -41,7 +41,7 @@ public class AppController {
 	MessageSource messageSource;
         
         LocalDate data = new LocalDate(); 
-        //LocalDate data = new LocalDate(2017,06,02);
+        //LocalDate data = new LocalDate(2017,01,05);
 
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
 	public String home(ModelMap model) {
@@ -71,10 +71,9 @@ public class AppController {
                             "O restaurante do dia é: " + restauranteDoDia.getNome());
                 }
                 else{
-                    restauranteDoDia = votoService.selecionarRestauranteDia(data, 
-                            new ArrayList<RestauranteDia>(restaurantesDia));
+                    restauranteDoDia = votoService.selecionarRestauranteDia(data);                         
                                                            
-                    //se nao foi possivel selecionar um restaurante (nenhum voto)
+                    //se nao foi possivel selecionar um restaurante
                     if(restauranteDoDia==null) 
                         model.addAttribute("msgRestauranteDoDia", "Nenhum voto valido ainda para o dia atual");
                     else{ 
@@ -82,7 +81,7 @@ public class AppController {
                                 "Restaurante do dia ainda não escolhido");
                         model.addAttribute("sorteio", true);
                         model.addAttribute("restauranteDoDia", restauranteDoDia);                 
-                    } 
+                    }
                 }
                 
                 return "home";
