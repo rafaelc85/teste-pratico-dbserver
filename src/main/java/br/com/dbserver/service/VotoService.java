@@ -21,8 +21,10 @@ public interface VotoService {
         
         String validaRegra1(Voto voto);
         
+        String validaRegra2(Voto voto, List<RestauranteDia> restaurantesDia);
+        
         List<Voto> findVotosByDate(LocalDate data);
         
-        Restaurante selecionarRestauranteDia(LocalDate data, List<RestauranteDia> restaurantesDia);
+        Restaurante selecionarRestauranteDia(LocalDate data);
 	
 }

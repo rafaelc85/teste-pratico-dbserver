@@ -3,6 +3,7 @@ package br.com.dbserver.controller;
 
 import br.com.dbserver.model.Funcionario;
 import br.com.dbserver.model.Restaurante;
+import br.com.dbserver.model.RestauranteDia;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.dbserver.model.Voto;
 import br.com.dbserver.service.FuncionarioService;
+import br.com.dbserver.service.RestauranteDiaService;
 import br.com.dbserver.service.RestauranteService;
 import br.com.dbserver.service.VotoService;
 import java.util.List;
@@ -38,6 +40,9 @@ public class VotoController {
         
         @Autowired
 	RestauranteService restauranteService;
+        
+        @Autowired
+        RestauranteDiaService restauranteDiaService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -80,11 +85,21 @@ public class VotoController {
                     System.out.println("Erro ao validar a identificacao do funcionario e do restaurante");
                 }
                 
-                String validaVoto = votoService.validaRegra1(voto);                
-                if(validaVoto!=null){
-                    model.addAttribute("success", validaVoto);
+                //Validando regra1
+                String validaRegra1 = votoService.validaRegra1(voto); 
+                if(validaRegra1!=null){
+                    model.addAttribute("success", validaRegra1);
                     return "success";
                 }
+                
+                //Validando regra2
+                List<RestauranteDia> restaurantesDia = restauranteDiaService.findAllRestaurantesDia();
+                String validaRegra2 = votoService.validaRegra2(voto, restaurantesDia);
+                if(validaRegra2!=null){
+                    model.addAttribute("success", validaRegra2);
+                    return "success";
+                }
+                
 		votoService.saveVoto(voto);
 		model.addAttribute("success", "Voto registrado com sucesso");
 		return "success";
