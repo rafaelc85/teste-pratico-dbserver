@@ -7,13 +7,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Home - DBServer Teste Prático</title>
     
+    <link href="<c:url value="/resources/theme1/css/avgrund.css" />" rel="stylesheet">
+    
     <link href="<c:url value="/resources/theme1/css/style.css" />" rel="stylesheet">   
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
-    
-    <link href="<c:url value="/resources/theme1/css/avgrund.css" />" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>     
     
     <link href="<c:url value="/resources/theme1/css/sweetalert.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/theme1/js/sweetalert.min.js" />"></script>    

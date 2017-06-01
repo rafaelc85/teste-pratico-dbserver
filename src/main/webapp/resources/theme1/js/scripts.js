@@ -1,4 +1,5 @@
 
+
 function removeBox(url){
     test("remover registro", function() {
         swal({
