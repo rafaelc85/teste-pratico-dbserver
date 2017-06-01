@@ -24,7 +24,6 @@ html, body {
 }
 
 .avgrund-overlay{
-	background: #000 !important;
 	width: 100% !important;
 	position: relative !important;
 	top: -1500px !important;
